@@ -1,19 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity()
+@Entity("user")
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column("bigint")
-  telegramId: number;
+  telegram_id: number;
 
   @Column()
-  firstName: string;
+  first_name: string;
 
   @Column()
-  lastName: string;
+  last_name: string;
 
   @Column()
-  lang: string;
+  language_code: string;
 }
