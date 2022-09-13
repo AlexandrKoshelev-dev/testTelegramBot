@@ -16,4 +16,7 @@ export class User {
 
   @Column()
   language_code: string;
+
+  @Column({ default: "" })
+  message: string;
 }

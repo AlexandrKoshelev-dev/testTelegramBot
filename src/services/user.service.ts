@@ -31,4 +31,12 @@ export class UserService {
       console.log(error);
     }
   }
+
+  updateMessage(telegram_id: number, message: string) {
+    try {
+      return this.userRepository.update({ telegram_id }, { message });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

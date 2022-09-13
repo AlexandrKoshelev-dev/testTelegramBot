@@ -50,6 +50,29 @@ bot.on("message", async (msg) => {
       const url = new URL(process.env.FILE_URI).pathname.split(/\//);
       await bot.sendDocument(from, `https://docs.google.com/uc?export=download&id=${url[url.length - 2]}`);
       break;
+    case ru["spam"]:
+      bot.sendMessage(from, ru["agree"], { reply_markup: keyboard.agree() });
+      break;
+    default:
+      const user = await telegramController.findOne(msg);
+      if (user.message === " ") {
+        await telegramController.setMessageFlag(msg);
+        await bot.sendMessage(from, ru["done_spam"] + (await telegramController.spam(text)));
+      }
+      break;
+  }
+});
+
+bot.on("callback_query", async (msg) => {
+  const data = msg.data;
+  const from = msg.message.chat.id;
+
+  switch (data) {
+    case "YES":
+      await bot.sendMessage(from, ru["enter_message"]);
+      await telegramController.setMessageFlag(msg, " ");
+      break;
+
     default:
       break;
   }
