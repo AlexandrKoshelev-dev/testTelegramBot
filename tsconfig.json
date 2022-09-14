@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "types": ["reflect-metadata"],
     "paths": {
       "@/*": ["*"],
