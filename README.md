@@ -1,4 +1,4 @@
-# Tets telegram bot project
+# Test telegram bot project
 
 Steps to run this project:
 
