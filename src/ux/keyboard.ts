@@ -1,5 +1,5 @@
 import { InlineKeyboardMarkup, ReplyKeyboardMarkup } from "node-telegram-bot-api";
-import { ru } from "../localization/ru";
+import { ru } from "@localization/ru";
 
 export class Keyboard {
   mainMenu(): ReplyKeyboardMarkup {

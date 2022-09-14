@@ -18,7 +18,8 @@
       "@controllers/*": ["controllers/*"],
       "@services/*": ["services/*"],
       "@entities/*": ["entities/*"],
-      "@localization/*": ["localization/*"]
+      "@localization/*": ["localization/*"],
+      "@ux/*": ["ux/*"]
     }
   },
   "include": ["src/**/*.ts", ".env"],

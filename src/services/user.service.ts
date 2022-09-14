@@ -32,7 +32,7 @@ export class UserService {
     }
   }
 
-  updateMessage(telegram_id: number, message: string) {
+  updateMessage(telegram_id: number, message: boolean) {
     try {
       return this.userRepository.update({ telegram_id }, { message });
     } catch (error) {

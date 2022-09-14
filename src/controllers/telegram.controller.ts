@@ -1,6 +1,6 @@
 import { TYPES } from "@/core/types";
 import { UserService } from "@/services/user.service";
-import { inject, injectable } from "inversify";
+import { inject } from "inversify";
 import { CallbackQuery, Message } from "node-telegram-bot-api";
 import axios from "axios";
 import "dotenv/config";
@@ -33,8 +33,8 @@ export class TelegramController {
     }
   }
 
-  async setMessageFlag(msg: CallbackQuery | Message, message?: string) {
-    await this.userService.updateMessage(msg.from.id, message ? message : "");
+  async setMessageFlag(msg: CallbackQuery | Message, message: boolean) {
+    await this.userService.updateMessage(msg.from.id, message);
   }
 
   async spam(message: string) {

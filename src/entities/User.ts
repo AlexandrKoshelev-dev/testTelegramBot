@@ -17,6 +17,6 @@ export class User {
   @Column()
   language_code: string;
 
-  @Column({ default: "" })
-  message: string;
+  @Column({ default: "false" })
+  message: boolean;
 }

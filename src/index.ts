@@ -1,13 +1,12 @@
 import { AppDataSource } from "@core/data-source";
 import TelegramBot from "node-telegram-bot-api";
 import "dotenv/config";
-import { COMMANDS } from "./ux/commands";
+import { COMMANDS } from "@ux/commands";
 import { TelegramController } from "@controllers/telegram.controller";
-import { UserService } from "./services/user.service";
-import { User } from "./entities/User";
-import { ru } from "./localization/ru";
-import { Keyboard } from "./ux/keyboard";
-import { url } from "inspector";
+import { UserService } from "@services/user.service";
+import { User } from "@entities/User";
+import { ru } from "@localization/ru";
+import { Keyboard } from "@ux/keyboard";
 
 const telegramController = new TelegramController(new UserService(AppDataSource.getRepository(User)));
 const keyboard = new Keyboard();
@@ -41,6 +40,7 @@ bot.on("message", async (msg) => {
   const text = msg.text;
   const from = msg.chat.id;
 
+  if (!text) return;
   switch (text) {
     case ru["weather"]:
       bot.sendMessage(from, await telegramController.getWeather(), { parse_mode: "HTML" });
@@ -55,8 +55,8 @@ bot.on("message", async (msg) => {
       break;
     default:
       const user = await telegramController.findOne(msg);
-      if (user.message === " ") {
-        await telegramController.setMessageFlag(msg);
+      if (user.message) {
+        await telegramController.setMessageFlag(msg, false);
         await bot.sendMessage(from, ru["done_spam"] + (await telegramController.spam(text)));
       }
       break;
@@ -70,7 +70,10 @@ bot.on("callback_query", async (msg) => {
   switch (data) {
     case "YES":
       await bot.sendMessage(from, ru["enter_message"]);
-      await telegramController.setMessageFlag(msg, " ");
+      await telegramController.setMessageFlag(msg, true);
+      break;
+    case "CANCEL":
+      await telegramController.setMessageFlag(msg, false);
       break;
 
     default:
